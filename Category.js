@@ -14,6 +14,7 @@ function Category(id, title, color) {
     this.id = id;
     this.title = title;
     this.color = color;
+    this.values = [];
 }
 
 Category.prototype.init = function () {
@@ -23,19 +24,35 @@ Category.prototype.init = function () {
 Category.prototype.generateHTML = function () {
     var html = "";
 
+    // list
     html += '<div id="CategoryNo' + this.id + '" class="VisualControlSortableList">';
     html += '</div>';
-    html += '<input id="CatogoryAddInput' + this.id + '"></input>'
-    html += '<button id="CatogoryAddButton' + this.id + '">+</button>'
+    html += "<br>";
+
+    // add inputs
+    html += '<input id="CatogoryAddInput' + this.id + '">';
+    html += '<select id="CatogoryAddColorInput'+this.id+'"><option>red</option><option>yellow</option><option>green</option></select>';
+    html += '<input type="datetime-local" id="CatogoryAddDateInput' + this.id + '">';
+    html += '<button id="CatogoryAddButton' + this.id + '">+</button>';
+
     return html;
 };
 
 Category.prototype.initFunctionality = function () {
     var x=this;
-    document.getElementById("CatogoryAddButton"+this.id).addEventListener("click",function () {
 
-        document.getElementById("CategoryNo"+x.id).innerHTML += '<div class="VisualControlSortableListElement SortableListElement_Movable">' + document.getElementById("CatogoryAddInput"+x.id).value + '</div>';
-    })
+    document.getElementById("CatogoryAddButton"+this.id).addEventListener("click",function () {
+        var name = document.getElementById("CatogoryAddInput"+x.id).value;
+        var color = document.getElementById("CatogoryAddColorInput"+x.id).value;
+        var date = document.getElementById("CatogoryAddDateInput"+x.id).value;
+        var html = '<div class="VisualControlSortableListElement SortableListElement_Movable" style="border-color: '+color+'; color: white">';
+        html += name + "<br>" + date + '<button id="deleteBtn'+x.id + '_' + x.value.length + '">x</button></div>';
+        document.getElementById("CategoryNo"+x.id).innerHTML += html;
+        x.values.push(x.values.length);
+
+
+    });
+
     $("#CategoryNo" + this.id).sortable({
         connectWith: ".VisualControlSortableList",
         update: function () {
