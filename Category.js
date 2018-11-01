@@ -2,7 +2,7 @@ var category = [];
 
 function renderAll() {
     var html = "";
-    for (let i = 0; i < category.length; i++) {
+    for (var i = 0; i < category.length; i++) {
         if (category[i] != null) {
             html += category[i].generateHTML()
         }
@@ -14,6 +14,7 @@ function Category(id, title, color) {
     this.id = id;
     this.title = title;
     this.color = color;
+    this.values = [];
 }
 
 Category.prototype.init = function () {
@@ -23,20 +24,36 @@ Category.prototype.init = function () {
 Category.prototype.generateHTML = function () {
     var html = "";
 
-    html += '<div id="CategoryNo' + this.id + '" class="VisualControlSortableList" style="border-color:" + this.color>';
+    // list
+    html += '<div id="CategoryNo' + this.id + '" class="VisualControlSortableList">';
     html += '</div>';
     html += '<button id="categoryDeleteButton' + this.id + '" onclick="delCat(' + this.id + ' )"></button';
-    html += '<input id="CatogoryAddInput' + this.id + '"></input>';
+    html += "<br>";
+
+    // add inputs
+    html += '<input id="CatogoryAddInput' + this.id + '">';
+    html += '<select id="CatogoryAddColorInput'+this.id+'"><option>red</option><option>yellow</option><option>green</option></select>';
+    html += '<input type="datetime-local" id="CatogoryAddDateInput' + this.id + '">';
     html += '<button id="CatogoryAddButton' + this.id + '">+</button>';
+
     return html;
 };
 
 Category.prototype.initFunctionality = function () {
-    var x = this;
-    document.getElementById("CatogoryAddButton" + this.id).addEventListener("click", function () {
+    var x=this;
 
-        document.getElementById("CategoryNo" + x.id).innerHTML += '<div class="VisualControlSortableListElement SortableListElement_Movable">' + document.getElementById("CatogoryAddInput" + x.id).value + '</div>';
-    })
+    document.getElementById("CatogoryAddButton"+this.id).addEventListener("click",function () {
+        var name = document.getElementById("CatogoryAddInput"+x.id).value;
+        var color = document.getElementById("CatogoryAddColorInput"+x.id).value;
+        var date = document.getElementById("CatogoryAddDateInput"+x.id).value;
+        var html = '<div class="VisualControlSortableListElement SortableListElement_Movable" style="border-color: '+color+'; color: white">';
+        html += name + "<br>" + date + '<button id="deleteBtn'+x.id + '_' + x.value.length + '">x</button></div>';
+        document.getElementById("CategoryNo"+x.id).innerHTML += html;
+        x.values.push(x.values.length);
+
+
+    });
+
     $("#CategoryNo" + this.id).sortable({
         connectWith: ".VisualControlSortableList",
         update: function () {
@@ -52,11 +69,10 @@ function delCat(id) {
 }
 
 function addCat() {
-    let title = document.getElementById('catTitle').value;
-    let color = document.getElementById('color').value;
-    let newCat = new Category(category.length, title, color);
+    var title = document.getElementById('catTitle').value;
+    var color = document.getElementById('color').value;
+    var newCat = new Category(category.length, title, color);
     category.push(newCat);
-    console.log(title);
     document.getElementById("mainContainer").innerHTML += newCat.generateHTML();
     newCat.initFunctionality();
 }
