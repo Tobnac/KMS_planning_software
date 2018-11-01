@@ -2,7 +2,7 @@ var category = [];
 
 function renderAll() {
     var html = "";
-    for (let i = 0; i < category.length; i++) {
+    for (var i = 0; i < category.length; i++) {
         if (category[i] != null) {
             html += category[i].generateHTML()
         }
@@ -45,10 +45,10 @@ Category.prototype.initFunctionality = function () {
 };
 
 function addCat() {
-    let title = document.getElementById('catTitle').value;
-    let color = document.getElementById('color').value;
-    let newCat = new Category(category.length, title, color);
-    category.add(newCat);
+    var title = document.getElementById('catTitle').value;
+    var color = document.getElementById('color').value;
+    var newCat = new Category(category.length, title, color);
+    category.push(newCat);
     document.getElementById("mainContainer").innerHTML += newCat.generateHTML();
     newCat.initFunctionality();
 }
