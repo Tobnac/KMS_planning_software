@@ -27,7 +27,7 @@ Category.prototype.generateHTML = function () {
     // list
     html += '<div id="CategoryNo' + this.id + '" class="VisualControlSortableList">';
     html += '</div>';
-    html += '<button id="categoryDeleteButton' + this.id + '" onclick="delCat(' + this.id + ' )"></button';
+    html += '<button id="categoryDeleteButton' + this.id + '" onclick="delCat(' + this.id + ' )"></button>';
     html += "<br>";
 
     // add inputs
