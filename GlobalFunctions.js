@@ -1,9 +1,14 @@
 function initAll() {
-    var newList = new Category(1);
-    document.getElementById("mainContainer").innerHTML += newList.generateHTML();
-    newList.initFunctionality();
+    var allLists = [];
+    allLists.push(new Category(1));
+    allLists.push(new Category(2));
 
-    newList = new Category(2);
-    document.getElementById("mainContainer").innerHTML += newList.generateHTML();
-    newList.initFunctionality();
+
+    allLists.map(function (list) {
+        document.getElementById("mainContainer").innerHTML += list.generateHTML();
+    });
+
+    allLists.map(function (list) {
+        list.initFunctionality();
+    });
 }

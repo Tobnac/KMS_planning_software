@@ -27,5 +27,5 @@ Category.prototype.initFunctionality = function () {
         update: function () {
             console.log($(this).sortable('toArray'));
         }
-    }).disableSelection();
+    });
 };
