@@ -23,35 +23,41 @@ Category.prototype.init = function () {
 
 Category.prototype.generateHTML = function () {
     var html = "";
-
+    html += '<div id=CatgroyDiv' + this.id + '>';
+    if (this.id !== 0) {
+        html += '<h3>' + this.title + '</h3>';
+    }
     // list
-    html += '<div id="CategoryNo' + this.id + '" class="VisualControlSortableList">';
+    html += '<div id="CategoryNo' + this.id + '" class="VisualControlSortableList" style="border-color:' + this.color + '" >';
     html += '</div>';
-    html += '<button id="categoryDeleteButton' + this.id + '" onclick="delCat(' + this.id + ' )"></button>';
+    //delete category
+    if (this.id !== 0) {
+        html += '<button id="categoryDeleteButton' + this.id + '" onclick="delCat(' + this.id + ' )">-</button>';
+    }
     html += "<br>";
 
     // add inputs
     html += '<input id="CatogoryAddInput' + this.id + '">';
-    html += '<select id="CatogoryAddColorInput'+this.id+'"><option>red</option><option>yellow</option><option>green</option></select>';
+    html += '<select id="CatogoryAddColorInput' + this.id + '"><option>red</option><option>yellow</option><option>green</option></select>';
     html += '<input type="datetime-local" id="CatogoryAddDateInput' + this.id + '">';
     html += '<button id="CatogoryAddButton' + this.id + '">+</button>';
-
+    html += '</div';
     return html;
 };
 
 Category.prototype.initFunctionality = function () {
-    var x=this;
+    var x = this;
 
-    document.getElementById("CatogoryAddButton"+this.id).addEventListener("click",function () {
-        var name = document.getElementById("CatogoryAddInput"+x.id).value;
-        var color = document.getElementById("CatogoryAddColorInput"+x.id).value;
-        var date = document.getElementById("CatogoryAddDateInput"+x.id).value;
-        var html = '<div class="VisualControlSortableListElement SortableListElement_Movable" style="border-color: '+color+'; color: white">';
-        html += name + "<br>" + date + '<button id="deleteBtn'+x.id + '_' + x.values.length + '">x</button></div>';
-        document.getElementById("CategoryNo"+x.id).innerHTML += html;
+    document.getElementById("CatogoryAddButton" + this.id).addEventListener("click", function () {
+        var name = document.getElementById("CatogoryAddInput" + x.id).value;
+        var color = document.getElementById("CatogoryAddColorInput" + x.id).value;
+        var date = document.getElementById("CatogoryAddDateInput" + x.id).value;
+        var html = '<div class="VisualControlSortableListElement SortableListElement_Movable" style="border-color: ' + color + '; color: white">';
+        html += name + "<br>" + date + '<button id="deleteBtn' + x.id + '_' + x.values.length + '">x</button></div>';
+        document.getElementById("CategoryNo" + x.id).innerHTML += html;
         x.values.push(x.values.length);
 
-        document.getElementById("deleteBtn" + x.id + "_" + (x.values.length-1)).addEventListener("click", function () {
+        document.getElementById("deleteBtn" + x.id + "_" + (x.values.length - 1)).addEventListener("click", function () {
             this.parentElement.parentElement.removeChild(this.parentElement);
         })
     });
@@ -66,15 +72,18 @@ Category.prototype.initFunctionality = function () {
 
 function delCat(id) {
     category[id] = null;
-    console.log("del");
-    document.getElementById("mainContainer").innerHTML = renderAll()
+    document.getElementById("mainContainer").removeChild(document.getElementById('CatgroyDiv' + id))
+}
+
+function createCat(newCat) {
+    category.push(newCat);
+    document.getElementById("mainContainer").innerHTML += newCat.generateHTML();
+    newCat.initFunctionality();
 }
 
 function addCat() {
     var title = document.getElementById('catTitle').value;
     var color = document.getElementById('color').value;
     var newCat = new Category(category.length, title, color);
-    category.push(newCat);
-    document.getElementById("mainContainer").innerHTML += newCat.generateHTML();
-    newCat.initFunctionality();
+    createCat(newCat);
 }
