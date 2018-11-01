@@ -47,11 +47,13 @@ Category.prototype.initFunctionality = function () {
         var color = document.getElementById("CatogoryAddColorInput"+x.id).value;
         var date = document.getElementById("CatogoryAddDateInput"+x.id).value;
         var html = '<div class="VisualControlSortableListElement SortableListElement_Movable" style="border-color: '+color+'; color: white">';
-        html += name + "<br>" + date + '<button id="deleteBtn'+x.id + '_' + x.value.length + '">x</button></div>';
+        html += name + "<br>" + date + '<button id="deleteBtn'+x.id + '_' + x.values.length + '">x</button></div>';
         document.getElementById("CategoryNo"+x.id).innerHTML += html;
         x.values.push(x.values.length);
 
-
+        document.getElementById("deleteBtn" + x.id + "_" + (x.values.length-1)).addEventListener("click", function () {
+            this.parentElement.parentElement.removeChild(this.parentElement);
+        })
     });
 
     $("#CategoryNo" + this.id).sortable({
