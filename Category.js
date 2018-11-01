@@ -48,7 +48,8 @@ function addCat() {
     let title = document.getElementById('catTitle').value;
     let color = document.getElementById('color').value;
     let newCat = new Category(category.length, title, color);
-    category.add(newCat);
+    category.push(newCat);
+    console.log(title);
     document.getElementById("mainContainer").innerHTML += newCat.generateHTML();
     newCat.initFunctionality();
 }
