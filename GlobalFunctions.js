@@ -3,7 +3,6 @@ function initAll() {
     allLists.push(new Category(1));
     allLists.push(new Category(2));
 
-
     allLists.map(function (list) {
         document.getElementById("mainContainer").innerHTML += list.generateHTML();
     });
