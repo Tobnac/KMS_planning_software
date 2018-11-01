@@ -7,6 +7,7 @@
 
     <script src="Category.js"></script>
     <script src="GlobalFunctions.js"></script>
+    <script src="User.js"></script>
     <script src="https://www.filterblade.xyz/jquery-3.2.1.js"></script>
     <script src="https://www.filterblade.xyz/libs/http_code.jquery.com_ui_1.12.1_jquery-ui.js"></script>
     <link rel="stylesheet" type="text/css" href="https://www.filterblade.xyz/libs/darkjquery-ui.css">
@@ -21,6 +22,12 @@
 <body onload="initAll()">
 
 <div id="myBody" class="myBody">
+    <div id="userlogin">
+    <input id="username" type="text" placeholder="Name">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="login()" >Login</button>
+        <label id="loginLabel"></label>
+    </div>
     <!--<label>Aufgabe:-->
     <input id="catTitle" type="text">
     <input id="color" type="color">

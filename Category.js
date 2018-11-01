@@ -23,7 +23,6 @@ Category.prototype.init = function () {
 
 Category.prototype.generateHTML = function () {
     var html = "";
-
     // list
     html += '<div id="CategoryNo' + this.id + '" class="VisualControlSortableList">';
     html += '</div>';

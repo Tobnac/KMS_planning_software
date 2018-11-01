@@ -1,4 +1,5 @@
 function initAll() {
+    localStorage.setItem("admin", "admin");
     var allLists = [];
     allLists.push(new Category(1));
     // allLists.push(new Category(2));
