@@ -21,6 +21,15 @@
 </head>
 <body onload="initAll()">
 
+<div id="ModalBox_Outer" style="display: none;" onclick="hideModalBox(event)">
+    <div id="ModalBox_Container">
+        <button id="ModalBoxCloseBtn" onclick="hideModalBox(event)">x</button>
+        <div id="ModalBox_Content">
+            <label>...</label>
+        </div>
+    </div>
+</div>
+
 <div id="myBody" class="myBody">
     <div id="userlogin">
     <input id="username" type="text" placeholder="Name">

@@ -48,18 +48,20 @@ Category.prototype.generateHTML = function () {
 Category.prototype.initFunctionality = function () {
     var x = this;
 
-    document.getElementById("CatogoryAddButton" + this.id).addEventListener("click", function () {
-        var name = document.getElementById("CatogoryAddInput" + x.id).value;
-        var color = document.getElementById("CatogoryAddColorInput" + x.id).value;
-        var date = document.getElementById("CatogoryAddDateInput" + x.id).value;
-        var html = '<div class="VisualControlSortableListElement SortableListElement_Movable" style="border-color: ' + color + '; color: white">';
-        html += name + "<br>" + date + '<button id="deleteBtn' + x.id + '_' + x.values.length + '">x</button></div>';
-        document.getElementById("CategoryNo" + x.id).innerHTML += html;
+    document.getElementById("CatogoryAddButton"+this.id).addEventListener("click",function () {
+        var name = document.getElementById("CatogoryAddInput"+x.id).value;
+        var color = document.getElementById("CatogoryAddColorInput"+x.id).value;
+        var date = document.getElementById("CatogoryAddDateInput"+x.id).value;
+        var html = '<div id="task'+x.id + '_' + x.values.length + '" class="VisualControlSortableListElement SortableListElement_Movable" style="border-color: '+color+'; color: white">';
+        html += name + "<br>" + date + '<br>';
+        html += '<button onclick="openEditPopUp(this.parentElement)">edit</button>';
+        html += '<button onclick="this.parentElement.parentElement.removeChild(this.parentElement);" id="deleteBtn'+x.id + '_' + x.values.length + '">x</button></div>';
+        document.getElementById("CategoryNo"+x.id).innerHTML += html;
         x.values.push(x.values.length);
 
-        document.getElementById("deleteBtn" + x.id + "_" + (x.values.length - 1)).addEventListener("click", function () {
-            this.parentElement.parentElement.removeChild(this.parentElement);
-        })
+        // document.getElementById("deleteBtn" + x.id + "_" + (x.values.length-1)).addEventListener("click", function () {
+
+        // })
     });
 
     $("#CategoryNo" + this.id).sortable({
