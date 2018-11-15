@@ -15,14 +15,59 @@
     <link rel="stylesheet" type="text/css" href="https://www.filterblade.xyz/libs/darkjquery-ui.css">
     <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.8.0.css">
 
+    <!--<script src="https://code.jquery.com/qunit/qunit-2.8.0.js"></script>-->
+    <!--<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.8.0.css">-->
+
     <style>
         .myBody, #myBody {
-            background: gray;
+            background: #e0e0e0;
             color: black !important;
         }
     </style>
+
+    <script>
+        function runAllTests() {
+            QUnit.test("Add Category HTML Test", function( assert ) {
+                var oldLength = document.getElementsByTagName("body")[0].innerHTML.length;
+                addCat();
+                var newLength = document.getElementsByTagName("body")[0].innerHTML.length;
+                assert.ok( oldLength < newLength, "html added" );
+            });
+
+            QUnit.test("Add item HTML Test", function( assert ) {
+                var oldLength = document.getElementsByTagName("body")[0].innerHTML.length;
+                var btn;
+                var randomInput = "hgtuighldvjdl";
+                for (var i = 0; i < 5; i++)
+                {
+                    btn = document.getElementById("CatogoryAddButton" + i);
+                    var inp = document.getElementById("CatogoryAddInput" + i);
+                    if (inp && btn)
+                    {
+                        inp.value = randomInput;
+                        btn.click();
+                        break;
+                    }
+                }
+                var newLength = document.getElementsByTagName("body")[0].innerHTML.length;
+                assert.ok( oldLength < newLength, "html added" );
+                assert.ok( document.getElementsByTagName("body")[0].innerHTML.indexOf(randomInput) != -1, "content present! (yay?)" );
+            });
+
+            QUnit.test("Delete Category HTML Test", function( assert ) {
+                var oldLength = document.getElementsByTagName("body")[0].innerHTML.length;
+                delCat(1);
+                var newLength = document.getElementsByTagName("body")[0].innerHTML.length;
+                assert.ok( oldLength > newLength, "html removed" );
+            });
+        }
+//        runAllTests();
+    </script>
 </head>
 <body onload="initAll()">
+
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
 
 <div id="ModalBox_Outer" style="display: none;" onclick="hideModalBox(event)">
     <div id="ModalBox_Container">
