@@ -4,7 +4,7 @@ function renderAll() {
     var html = "";
     for (var i = 0; i < category.length; i++) {
         if (category[i] != null) {
-            html += category[i].generateHTML()
+            html += category[i].generateHTML();
         }
     }
     return html;
