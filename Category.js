@@ -1,8 +1,8 @@
-var category = [];
+const category = [];
 
 function renderAll() {
-    var html = "";
-    for (var i = 0; i < category.length; i++) {
+    let html = "";
+    for (let i = 0; i < category.length; i++) {
         if (category[i] != null) {
             html += category[i].generateHTML()
         }
@@ -22,8 +22,8 @@ Category.prototype.init = function () {
 };
 
 Category.prototype.generateHTML = function () {
-    var html = "";
-    html += '<div id=CatgroyDiv' + this.id + '>';
+    let html = "";
+    html += '<div class="category" id=CategoryDiv' + this.id + '>';
     if (this.id !== 0) {
         html += '<h3>' + this.title + '</h3>';
     }
@@ -32,30 +32,30 @@ Category.prototype.generateHTML = function () {
     html += '</div>';
     //delete category
     if (this.id !== 0) {
-        html += '<button id="categoryDeleteButton' + this.id + '" onclick="delCat(' + this.id + ' )">-</button>';
+        html += `<button id="categoryDeleteButton${this.id}" onclick="delCat(${this.id} )">-</button>`;
     }
     html += "<br>";
 
     // add inputs
-    html += '<input id="CatogoryAddInput' + this.id + '">';
-    html += '<select id="CatogoryAddColorInput' + this.id + '"><option>red</option><option>yellow</option><option>green</option></select>';
-    html += '<input type="datetime-local" id="CatogoryAddDateInput' + this.id + '">';
-    html += '<button id="CatogoryAddButton' + this.id + '">+</button>';
+    html += '<input id="CategoryAddInput' + this.id + '">';
+    html += `<select id="CategoryAddColorInput${this.id}"><option>red</option><option>yellow</option><option>green</option></select>`;
+    html += '<input type="datetime-local" id="CategoryAddDateInput' + this.id + '">';
+    html += '<button id="CategoryAddButton' + this.id + '">+</button>';
     html += '</div';
     return html;
 };
 
 Category.prototype.initFunctionality = function () {
-    var x = this;
+    let x = this;
 
-    document.getElementById("CatogoryAddButton"+this.id).addEventListener("click",function () {
-        var name = document.getElementById("CatogoryAddInput"+x.id).value;
-        var color = document.getElementById("CatogoryAddColorInput"+x.id).value;
-        var date = document.getElementById("CatogoryAddDateInput"+x.id).value;
-        var html = '<div id="task'+x.id + '_' + x.values.length + '" class="VisualControlSortableListElement SortableListElement_Movable" style="border-color: '+color+'; color: white">';
+    document.getElementById("CategoryAddButton"+this.id).addEventListener("click",function () {
+        const name = document.getElementById("CategoryAddInput" + x.id).value;
+        const color = document.getElementById("CategoryAddColorInput" + x.id).value;
+        const date = document.getElementById("CategoryAddDateInput" + x.id).value;
+        let html = '<div id="task' + x.id + '_' + x.values.length + '" class="VisualControlSortableListElement SortableListElement_Movable" style="border-color: ' + color + '; color: white">';
         html += name + "<br>" + date + '<br>';
         html += '<button onclick="openEditPopUp(this.parentElement)">edit</button>';
-        html += '<button onclick="this.parentElement.parentElement.removeChild(this.parentElement);" id="deleteBtn'+x.id + '_' + x.values.length + '">x</button></div>';
+        html += `<button onclick="this.parentElement.parentElement.removeChild(this.parentElement);" id="deleteBtn${x.id}_${x.values.length}">x</button></div>`;
         document.getElementById("CategoryNo"+x.id).innerHTML += html;
         x.values.push(x.values.length);
 
@@ -74,7 +74,7 @@ Category.prototype.initFunctionality = function () {
 
 function delCat(id) {
     category[id] = null;
-    document.getElementById("mainContainer").removeChild(document.getElementById('CatgroyDiv' + id))
+    document.getElementById("mainContainer").removeChild(document.getElementById('CategoryDiv' + id))
 }
 
 function createCat(newCat) {
@@ -84,8 +84,8 @@ function createCat(newCat) {
 }
 
 function addCat() {
-    var title = document.getElementById('catTitle').value;
-    var color = document.getElementById('color').value;
-    var newCat = new Category(category.length, title, color);
+    const title = document.getElementById('catTitle').value;
+    const color = document.getElementById('color').value;
+    const newCat = new Category(category.length, title, color);
     createCat(newCat);
 }
